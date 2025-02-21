@@ -18,39 +18,37 @@ class _VerifyPanState extends State<VerifyPan> {
   final _panController= TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      spacing: 20.h,
-      children: [
-        Header(title: 'Verify PAN Number'),
-        Image.asset('assets/images/email.png',
-          height: 170.h,
-          width: 170.w,
-        ),
-        DetailsField(
-            controller: _panController,
-            title: 'Enter Your PAN Number*',
-            hintText: 'e.g., ABCDE1234F'
-        ),
-        Expanded(
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: SizedBox(
-              width: double.infinity,
-              child: ColorFullBtn(
-                  text: 'Verify',
-                  onTap: (){
-                    FocusScope.of(context).requestFocus(FocusNode());
-                    Navigator.pushNamed(
-                      context,
-                      '/applyLoan',
-                    );
-                  }
-              ),
-            ),
+    return SingleChildScrollView(
+      child: Column(
+        spacing: 20.h,
+        children: [
+          Header(title: 'Verify PAN Number'),
+          Image.asset('assets/images/email.png',
+            height: 170.h,
+            width: 170.w,
           ),
-        ),
-        SizedBox(height: 30.h,)
-      ],
+          DetailsField(
+              controller: _panController,
+              title: 'Enter Your PAN Number*',
+              hintText: 'e.g., ABCDE1234F'
+          ),
+
+          SizedBox(height: 30.h,),
+          SizedBox(
+            width: double.infinity,
+            child: ColorFullBtn(
+                text: 'Verify',
+                onTap: (){
+                  FocusScope.of(context).requestFocus(FocusNode());
+                  Navigator.pushNamed(
+                    context,
+                    '/applyLoan',
+                  );
+                }
+            ),
+          )
+        ],
+      ),
     );
   }
   @override

@@ -20,109 +20,106 @@ class _PersonalEmailState extends State<PersonalEmail> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      spacing: 20.h,
-      children: [
-        Header(title: 'Personal Email ID'),
-        Image.asset('assets/images/email.png',
-          height: 170.h,
-          width: 170.w,
-        ),
-        DetailsField(
-            controller: _emailController,
-            title: 'Email ID*',
-            hintText: 'Enter your email ID'
-        ),
-        Column(
-          spacing: 10.h,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('OTP Verification',
-              style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                  color: AppColor.blackColor,
-                  fontSize: 15.sp
+    return SingleChildScrollView(
+      child: Column(
+        spacing: 20.h,
+        children: [
+          Header(title: 'Personal Email ID'),
+          Image.asset('assets/images/email.png',
+            height: 170.h,
+            width: 170.w,
+          ),
+          DetailsField(
+              controller: _emailController,
+              title: 'Email ID*',
+              hintText: 'Enter your email ID'
+          ),
+          Column(
+            spacing: 10.h,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('OTP Verification',
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                    color: AppColor.blackColor,
+                    fontSize: 15.sp
+                ),
               ),
-            ),
-            OtpTextField(
-              numberOfFields: 5,
-              focusedBorderColor: AppColor.blueColor,
-              mainAxisAlignment: MainAxisAlignment.start,
-              showFieldAsBox: true,
-              onCodeChanged: (String code) {
-                //handle validation or checks here
-              },
-              textStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  fontSize: 14.sp
+              OtpTextField(
+                numberOfFields: 5,
+                focusedBorderColor: AppColor.blueColor,
+                mainAxisAlignment: MainAxisAlignment.start,
+                showFieldAsBox: true,
+                onCodeChanged: (String code) {
+                  //handle validation or checks here
+                },
+                textStyle: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    fontSize: 14.sp
+                ),
+                margin: EdgeInsets.only(right: 15.w),
+                fieldHeight: 50.h,
+                fieldWidth: 50.h,
+                borderRadius: BorderRadius.circular(6.r),
+                onSubmit: (String verificationCode){
+                  showDialog(
+                      context: context,
+                      builder: (context){
+                        return AlertDialog(
+                          title: Text("Verification Code"),
+                          content: Text('Code entered is $verificationCode'),
+                        );
+                      }
+                  );
+                }, // end onSubmit
               ),
-              margin: EdgeInsets.only(right: 15.w),
-              fieldHeight: 50.h,
-              fieldWidth: 50.h,
-              borderRadius: BorderRadius.circular(6.r),
-              onSubmit: (String verificationCode){
-                showDialog(
-                    context: context,
-                    builder: (context){
-                      return AlertDialog(
-                        title: Text("Verification Code"),
-                        content: Text('Code entered is $verificationCode'),
-                      );
-                    }
-                );
-              }, // end onSubmit
-            ),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                RichText(
-                    text: TextSpan(
-                      text: "Didn't receive it?",
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: AppColor.blackColor,
-                            fontSize: 13.sp
-                        ),
-                      children: [
-                        TextSpan(
-                          text: "Resend Code",
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  RichText(
+                      text: TextSpan(
+                        text: "Didn't receive it?",
                           style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: AppColor.blueColor,
+                              color: AppColor.blackColor,
                               fontSize: 13.sp
                           ),
-                        )
-                      ]
-                    )
-                ),
-                Text('00:28',
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: AppColor.blackColor,
-                      fontSize: 13.sp
+                        children: [
+                          TextSpan(
+                            text: "Resend Code",
+                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                color: AppColor.blueColor,
+                                fontSize: 13.sp
+                            ),
+                          )
+                        ]
+                      )
                   ),
-                )
-              ],
-            ),
-          ],
-        ),
-        Expanded(
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: SizedBox(
-              width: double.infinity,
-              child: ColorFullBtn(
-                  text: 'Verify',
-                  onTap: (){
-                    FocusScope.of(context).requestFocus(FocusNode());
-                    Navigator.pushNamed(
-                      context,
-                      '/pan',
-                      // arguments: DetailsArguments('Sample Data'),
-                    );
-                  }
+                  Text('00:28',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: AppColor.blackColor,
+                        fontSize: 13.sp
+                    ),
+                  )
+                ],
               ),
-            ),
+            ],
           ),
-        ),
-        SizedBox(height: 30.h,)
-      ],
+          SizedBox(height: 30.h,),
+          SizedBox(
+            width: double.infinity,
+            child: ColorFullBtn(
+                text: 'Verify',
+                onTap: (){
+                  FocusScope.of(context).requestFocus(FocusNode());
+                  Navigator.pushNamed(
+                    context,
+                    '/pan',
+                    // arguments: DetailsArguments('Sample Data'),
+                  );
+                }
+            ),
+          )
+        ],
+      ),
     );
   }
 

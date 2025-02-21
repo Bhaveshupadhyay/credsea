@@ -14,9 +14,9 @@ abstract interface class AuthRepository{
     required String phone,
     required String password,
   });
-  Future<Either<Failure, bool>> loginWithPhone({
+  Future<Either<Failure, UserEntity?>> loginWithPhone({
     required String phone,
     required String password,
   });
-  Either<Failure, User?> currentUser();
+  Either<Failure, UserEntity?> currentUser();
 }

@@ -1,5 +1,4 @@
 import 'package:cred_sea/core/theme/app_color.dart';
-import 'package:cred_sea/core/usecase/usecase.dart';
 import 'package:cred_sea/core/utils/show_snackbar.dart';
 import 'package:cred_sea/features/auth/domain/usecases/current_user.dart';
 import 'package:cred_sea/features/auth/domain/usecases/use_create_password.dart';
@@ -9,6 +8,8 @@ import 'package:cred_sea/features/auth/domain/usecases/user_verify_otp.dart';
 import 'package:cred_sea/main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../../core/utils/user_auth.dart';
 
 class AuthController extends GetxController{
   final TextEditingController phoneController= TextEditingController();
@@ -41,19 +42,20 @@ class AuthController extends GetxController{
 
   @override
   void onInit() {
-    isUserLoggedIn();
+    isUserSignedUp();
     super.onInit();
   }
 
-  Future<void> isUserLoggedIn() async {
-    final res=await currentUser(NoParams());
-    res.fold((onLeft){
-
-    }, (user){
-      if(user!=null){
-        Get.to(MyHomePage());
-      }
-    });
+  Future<void> isUserSignedUp() async {
+    // final res=await currentUser(NoParams());
+    // print(FirebaseAuth.instance.currentUser);
+    // res.fold((onLeft){
+    //
+    // }, (user){
+    //   if(user!=null){
+    //     Get.to(MyHomePage());
+    //   }
+    // });
   }
 
   bool _isPhoneNumValid(){
@@ -157,12 +159,13 @@ class AuthController extends GetxController{
             (failure){
           showSnackBar('Unable to Login. Reason : ${failure.message}');
         },
-            (onRight){
-          FocusScope.of(context).requestFocus(FocusNode());
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            '/main', (Route<dynamic> route) => false,
-          );
+            (onRight) async {
+              await UserAuth.isUserLoggedIn();
+          Get.offAll(MyHomePage());
+          // Navigator.pushNamedAndRemoveUntil(
+          //   context,
+          //   '/main', (Route<dynamic> route) => false,
+          // );
         }
     );
   }

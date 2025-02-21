@@ -1,3 +1,4 @@
+import 'package:cred_sea/core/utils/user_auth.dart';
 import 'package:cred_sea/features/auth/presentation/pages/welcome.dart';
 import 'package:cred_sea/features/loan/presentation/pages/loan.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -13,6 +14,7 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await UserAuth.isUserLoggedIn();
   runApp(const MyApp());
 }
 
@@ -33,22 +35,16 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: Welcome(),
+      child: MyHomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
+class MyHomePage extends StatelessWidget {
   const MyHomePage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-  @override
   Widget build(BuildContext context) {
-    return Loan();
+    return UserAuth.isLoggedIn?Loan(): Welcome();
   }
 }

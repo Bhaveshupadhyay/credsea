@@ -3,7 +3,9 @@ import 'dart:convert';
 
 import 'package:cred_sea/core/constant/url.dart';
 import 'package:cred_sea/core/error/failure.dart';
+import 'package:cred_sea/core/utils/user_auth.dart';
 import 'package:cred_sea/features/auth/data/models/user_model.dart';
+import 'package:cred_sea/core/common/entities/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:dio/dio.dart';
 
@@ -11,7 +13,7 @@ abstract  class AuthRemoteDataSource{
   Future<String> sendOtp(String phone);
   Future<bool> verifyPhoneNumber(String otp,String verificationCode);
   Future<bool> createPassword(String phone,String password);
-  Future<bool> loginWithPassword(String phone, String password);
+  Future<UserEntity?> loginWithPassword(String phone, String password);
   UserModel? currentUser();
 }
 
@@ -42,15 +44,15 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
         data: data,
       );
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         return response.data['isSuccess'];
       }
       else {
         throw Failure(response.statusMessage);
       }
     }
-    on DioException catch(e){
-      throw Failure(e.message);
+    catch(e){
+      throw Failure(e.toString());
     }
   }
 
@@ -59,7 +61,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
     try{
       User? user= firebaseAuth.currentUser;
       if(user!= null){
-        return UserModel(id: user.uid, phone: user.phoneNumber??'', name: user.displayName??'');
+        return UserModel(id: user.uid, phone: user.phoneNumber??'');
       }
     }
     catch(e){
@@ -69,7 +71,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
   }
 
   @override
-  Future<bool> loginWithPassword(String phone, String password) async {
+  Future<UserEntity?> loginWithPassword(String phone, String password) async {
     var headers = {
       'Content-Type': 'application/json'
     };
@@ -87,17 +89,21 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
         data: data,
       );
       if (response.statusCode == 200) {
-
-        return response.data['isSuccess'];
+        bool isSuccess= response.data['isSuccess'];
+        if(isSuccess){
+          UserAuth.saveUser(response.data['uid']);
+          return UserModel(id: response.data['uid'], phone: phone);
+        }
       }
       else {
         throw Failure(response.statusMessage);
       }
     }
     on DioException catch(e){
-      print(e.message);
+      // print(e.message);
       throw Failure(e.message);
     }
+    return null;
   }
 
   @override

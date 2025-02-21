@@ -4,10 +4,10 @@ import 'package:fpdart/fpdart.dart';
 
 import '../../../../core/common/entities/user.dart';
 
-class UserSignUp implements UseCase<User,UserSignUpParams>{
+class UserSignUp implements UseCase<UserEntity,UserSignUpParams>{
 
   @override
-  Future<Either<Failure, User>> call(UserSignUpParams params) {
+  Future<Either<Failure, UserEntity>> call(UserSignUpParams params) {
     throw UnimplementedError();
   }
 }

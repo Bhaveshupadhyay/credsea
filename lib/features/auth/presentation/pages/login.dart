@@ -117,6 +117,7 @@ class _LoginState extends State<Login> {
                 child: ColorFullBtn(
                     text: 'Sign In',
                     onTap: (){
+                      FocusScope.of(context).requestFocus(FocusNode());
                       authController.loginWithPassword(context);
                     }
                 ),

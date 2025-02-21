@@ -16,29 +16,38 @@ class AuthRepositoryImpl implements AuthRepository{
       bool isSuccess= await authRemoteDataSource.createPassword(phone, password);
       return right(isSuccess);
     }
-    catch (e){
+    on Failure catch (e){
+      return left(e);
+    }
+    catch(e){
       return left(Failure(e.toString()));
     }
   }
 
   @override
-  Either<Failure, User?> currentUser() {
+  Either<Failure, UserEntity?> currentUser() {
     try{
-      User? user= authRemoteDataSource.currentUser();
+      UserEntity? user= authRemoteDataSource.currentUser();
       return right(user);
     }
-    catch (e){
+    on Failure catch (e){
+      return left(e);
+    }
+    catch(e){
       return left(Failure(e.toString()));
     }
   }
 
   @override
-  Future<Either<Failure, bool>> loginWithPhone({required String phone, required String password}) async {
+  Future<Either<Failure, UserEntity?>> loginWithPhone({required String phone, required String password}) async {
     try{
-      bool isSuccess= await authRemoteDataSource.loginWithPassword(phone, password);
-      return right(isSuccess);
+      UserEntity? userEntity= await authRemoteDataSource.loginWithPassword(phone, password);
+      return right(userEntity);
     }
-    catch (e){
+    on Failure catch (e){
+      return left(e);
+    }
+    catch(e){
       return left(Failure(e.toString()));
     }
   }
@@ -49,7 +58,10 @@ class AuthRepositoryImpl implements AuthRepository{
       String verificationId=await authRemoteDataSource.sendOtp(phone);
       return right(verificationId);
     }
-    catch (e){
+    on Failure catch (e){
+      return left(e);
+    }
+    catch(e){
       return left(Failure(e.toString()));
     }
   }
@@ -60,7 +72,10 @@ class AuthRepositoryImpl implements AuthRepository{
       bool isSuccess=await authRemoteDataSource.verifyPhoneNumber(otp,verificationCode);
       return right(isSuccess);
     }
-    catch (e){
+    on Failure catch (e){
+      return left(e);
+    }
+    catch(e){
       return left(Failure(e.toString()));
     }
   }
