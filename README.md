@@ -1,4 +1,4 @@
-# Flutter Clean Architecture (Getx) - Cred Sea
+# Flutter Clean Architecture (Getx) - Credit Sea
 
 Screen Recordings: https://drive.google.com/drive/folders/1PdrkGsMikGcsp0l_yWwZx18IDwhb9oWZ?usp=share_link
 
