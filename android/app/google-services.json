@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "944532937810",
+    "project_id": "credsea-2bd5d",
+    "storage_bucket": "credsea-2bd5d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944532937810:android:0d2c0c4d8b40fc2530138b",
+        "android_client_info": {
+          "package_name": "com.example.cred_sea"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADQdd8JdiGa0WBJ6nMOi4zsaArB4hVxjs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
