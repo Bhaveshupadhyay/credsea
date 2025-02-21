@@ -111,17 +111,17 @@ class _LoginState extends State<Login> {
               SizedBox(height: 20.h,),
               Obx(
                     ()=> authController.isLoading.value?
-                    Loader():
-                    SizedBox(
-                width: double.infinity,
-                child: ColorFullBtn(
-                    text: 'Sign In',
-                    onTap: (){
-                      FocusScope.of(context).requestFocus(FocusNode());
-                      authController.loginWithPassword(context);
-                    }
+                Loader():
+                SizedBox(
+                  width: double.infinity,
+                  child: ColorFullBtn(
+                      text: 'Sign In',
+                      onTap: (){
+                        FocusScope.of(context).requestFocus(FocusNode());
+                        authController.loginWithPassword(context);
+                      }
+                  ),
                 ),
-              ),
               ),
               SizedBox(height: 15.h,),
               Align(

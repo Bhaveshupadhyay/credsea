@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/common/widgets/loader.dart';
 import '../../../../core/theme/app_color.dart';
 import '../../../../core/common/widgets/color_full_btn.dart';
 import '../widgets/auth_container.dart';
@@ -117,16 +118,21 @@ class _PasswordState extends State<Password> {
               ),
 
               SizedBox(height: 10.h,),
-              SizedBox(
-                width: double.infinity,
-                child: ColorFullBtn(
-                    text: 'Proceed',
-                    onTap: (){
-                      FocusScope.of(context).requestFocus(FocusNode());
-                      authController.createPassword();
-                    }
-                ),
-              )
+
+              Obx(
+                    ()=> authController.isLoading.value?
+                    Loader():
+                    SizedBox(
+                      width: double.infinity,
+                      child: ColorFullBtn(
+                          text: 'Proceed',
+                          onTap: (){
+                            FocusScope.of(context).requestFocus(FocusNode());
+                            authController.createPassword();
+                          }
+                      ),
+                    )
+              ),
             ],
           ),
         ),

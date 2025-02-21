@@ -3,7 +3,9 @@ import 'package:cred_sea/features/loan/presentation/widgets/details_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
+import '../../../../core/common/getx/timer_controller.dart';
 import '../../../../core/theme/app_color.dart';
 import '../widgets/header.dart';
 
@@ -17,6 +19,7 @@ class PersonalEmail extends StatefulWidget {
 class _PersonalEmailState extends State<PersonalEmail> {
 
   final _emailController= TextEditingController();
+  final TimerController timerController= Get.put(TimerController());
 
   @override
   Widget build(BuildContext context) {
@@ -60,47 +63,41 @@ class _PersonalEmailState extends State<PersonalEmail> {
                 fieldWidth: 50.h,
                 borderRadius: BorderRadius.circular(6.r),
                 onSubmit: (String verificationCode){
-                  showDialog(
-                      context: context,
-                      builder: (context){
-                        return AlertDialog(
-                          title: Text("Verification Code"),
-                          content: Text('Code entered is $verificationCode'),
-                        );
-                      }
-                  );
                 }, // end onSubmit
               ),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  RichText(
-                      text: TextSpan(
-                        text: "Didn't receive it?",
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: AppColor.blackColor,
-                              fontSize: 13.sp
-                          ),
-                        children: [
-                          TextSpan(
-                            text: "Resend Code",
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                color: AppColor.blueColor,
-                                fontSize: 13.sp
-                            ),
+              Obx(()=>
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      RichText(
+                          text: TextSpan(
+                              text: "Didn't receive it?",
+                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                  color: AppColor.blackColor,
+                                  fontSize: 13.sp
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: "Resend Code",
+                                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      color: AppColor.blueColor,
+                                      fontSize: 13.sp
+                                  ),
+                                )
+                              ]
                           )
-                        ]
+                      ),
+                      Text('00:${timerController.seconds.value}',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: AppColor.blackColor,
+                            fontSize: 13.sp
+                        ),
                       )
+                    ],
                   ),
-                  Text('00:28',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        color: AppColor.blackColor,
-                        fontSize: 13.sp
-                    ),
-                  )
-                ],
               ),
+
             ],
           ),
           SizedBox(height: 30.h,),

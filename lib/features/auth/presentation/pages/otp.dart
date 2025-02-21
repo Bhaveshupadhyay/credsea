@@ -1,12 +1,13 @@
 import 'package:cred_sea/core/common/widgets/color_full_btn.dart';
 import 'package:cred_sea/features/auth/presentation/getx/auth_controller.dart';
-import 'package:cred_sea/features/auth/presentation/getx/timer_controller.dart';
+import 'package:cred_sea/core/common/getx/timer_controller.dart';
 import 'package:cred_sea/features/auth/presentation/widgets/auth_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../../core/common/widgets/loader.dart';
 import '../../../../core/theme/app_color.dart';
 
 class Otp extends StatelessWidget {
@@ -107,15 +108,21 @@ class Otp extends StatelessWidget {
                   ),
               ),
               SizedBox(height: 20.h,),
-              SizedBox(
-                width: double.infinity,
-                child: ColorFullBtn(
-                    text: 'Verify',
-                    onTap: (){
-                      authController.verifyPhoneNumber();
-                    }
-                ),
+
+              Obx(
+                      ()=> authController.isLoading.value?
+                      Loader():
+                      SizedBox(
+                        width: double.infinity,
+                        child: ColorFullBtn(
+                            text: 'Verify',
+                            onTap: (){
+                              authController.verifyPhoneNumber();
+                            }
+                        ),
+                      ),
               ),
+
             ],
           ),
         ),
