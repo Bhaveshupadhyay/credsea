@@ -5,35 +5,34 @@ Screen Recordings: https://drive.google.com/drive/folders/1PdrkGsMikGcsp0l_yWwZx
 ![credsea](https://github.com/user-attachments/assets/7f190183-5761-4ef4-8947-6abe1d0e6ca5)
 
 ## Folder Structure
-
-- `common/`
-  - `entities/`
-  - `getx/`
-  - `widgets/`
-- `constant/`
-- `error/`
-- `theme/`
-- `use_case/`
-- `utils/`
-
-### `features/`
-This directory contains feature-based modules that encapsulate all the logic and UI specific to each feature.
-
-- `feature1/`
-  - `data/`
-    - `datasources/`
-    - `models/`
-    - `repositories/`
-  - `domain/`
-    - `entities/`
-    - `repositories/`
-    - `usecases/`
-  - `presentation/`
-    - `getx/`
-    - `pages/`
-    - `widgets/`
-
-### `main.dart`
+```bash
+lib/
+├── core/
+│   ├── common/
+│   │   ├── entities/
+│   │   ├── getx/
+│   │   └── widgets/
+│   ├── constant/
+│   ├── error/
+│   ├── theme/
+│   └── use_case/
+│   └── utils/
+├── features/
+│   ├── feature/
+│   │   ├── data/
+│   │   │   ├── datasources/
+│   │   │   ├── models/
+│   │   │   └── repositories/
+│   │   ├── domain/
+│   │   │   ├── entities/
+│   │   │   ├── repositories/
+│   │   │   └── usecases/
+│   │   └── presentation/
+│   │       ├── getx/
+│   │       ├── pages/
+│   │       └── widgets/
+└── main.dart
+``` 
 
 ## Firebase
 <img width="1432" alt="Screenshot 2025-02-21 at 5 21 12 PM" src="https://github.com/user-attachments/assets/74c70335-e419-44ac-8731-38cc4cc01ab4" />
@@ -50,5 +49,3 @@ This directory contains feature-based modules that encapsulate all the logic and
 - webview_flutter
 - dotted_border
 - firebase_auth
-
-
