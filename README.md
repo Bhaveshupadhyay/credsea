@@ -1,6 +1,7 @@
-# cred_sea
+# Flutter Clean Architecture (Getx) - Cred Sea
 
-Cred Sea
+Screen Recordings: https://drive.google.com/drive/folders/1PdrkGsMikGcsp0l_yWwZx18IDwhb9oWZ?usp=share_link
+![credsea](https://github.com/user-attachments/assets/7f190183-5761-4ef4-8947-6abe1d0e6ca5)
 
 ## Getting Started
 
